@@ -143,3 +143,6 @@ Android.bp
 # KernelSU
 KernelSU/
 drivers/kernelsu/
+
+# out
+out/
