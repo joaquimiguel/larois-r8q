@@ -16,11 +16,10 @@ HOST_BUILD_ENV="ARCH=arm64 \
 
 KERNEL_MAKE_ENV="DTC_EXT=$(pwd)/tools/dtc CONFIG_BUILD_ARM64_DT_OVERLAY=y"
 
-KERNEL_NAME="Larois"
 OUT_DIR="$(pwd)/out"
 BOOT_DIR="$OUT_DIR/arch/arm64/boot"
 DTS_DIR="$BOOT_DIR/dts/vendor/qcom"
-AK3_DIR="$(pwd)AnyKernel3"
+AK3_DIR="$(pwd)/AnyKernel3"
 DEFCONFIG="vendor/kona-larois_defconfig vendor/samsung/kona-sec-common.config vendor/samsung/r8q.config"
 
 # Clear old build
@@ -66,12 +65,13 @@ cp "$BOOT_DIR/dtbo.img" "$AK3_DIR/dtbo.img"
 cat $(find "$DTS_DIR" -type f -name "*.dtb" | sort) > "$BOOT_DIR/kona.dtb"
 cp "$BOOT_DIR/kona.dtb" "$AK3_DIR/kona.dtb"
 
-gitsha=$(git rev-parse --short HEAD)
+build_date=$(date +%Y%m%d)
+gitsha=$(git rev-parse --short=7 HEAD)
 
-cd "$AK3_DIR"
+cd "$AK3_DIR" || exit 1
 rm -f *.zip
 
-zip -r9 "${KERNEL_NAME}-$gitsha-$(date +"%Y%m%d")-r8q.zip" .
+zip -r9 "Larois-${build_date}-${gitsha}-r8q.zip" .
 
 # Build completed
 echo " "

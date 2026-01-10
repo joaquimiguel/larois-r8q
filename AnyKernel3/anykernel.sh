@@ -44,7 +44,6 @@ split_boot;
     ui_print " "
     ui_print " - Patching dtb unconditionally... "
     mv $home/kona.dtb $home/dtb
-    ;;
 
 # begin cmdline changes
 if grep -q "ro.boot.verifiedbootstate=orange" /proc/cmdline; then
